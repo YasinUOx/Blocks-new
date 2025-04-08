@@ -26,5 +26,16 @@ class BlockParserTests{
         verify(robot).moveOnto(4,3)
     }
 
+
+
+    @Test
+    fun `canParseSingleOverInput`() {
+        val robot = mock(Robot::class.java)
+        val blocksParser = BlocksParser(robot)
+
+        blocksParser.parse("move 3 over 4")
+        verify(robot).moveOver(3,4)
+    }
+
 }
 

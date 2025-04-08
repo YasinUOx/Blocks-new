@@ -6,6 +6,7 @@ fun main(args: Array<String>) {
 
 interface Robot {
     fun moveOnto(from: Int, to: Int): String
+    fun moveOver(from: Int, to: Int): String
 }
 
 class BlocksParser(robot: Robot) {
@@ -19,7 +20,14 @@ class BlocksParser(robot: Robot) {
     fun parse(input: String){
         val left = input.split(" ")[1].toInt()
         val right = input.split(" ")[3].toInt()
-        robot.moveOnto(left, right)
+        if (input.split(" ")[2] == "onto"){
+            robot.moveOnto(left, right)
+        }
+        else {
+            robot.moveOver(left, right)
+        }
+
+
     }
 }
 
