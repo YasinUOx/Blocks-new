@@ -5,8 +5,10 @@ fun main(args: Array<String>) {
 }
 
 interface Robot {
-    fun moveOnto(from: Int, to: Int): String
-    fun moveOver(from: Int, to: Int): String
+    fun moveOnto(from: Int, to: Int)
+    fun moveOver(from: Int, to: Int)
+//    fun pileOnto(from: Int, to: Int)
+    fun quit()
 }
 
 class BlocksParser(robot: Robot) {
@@ -17,7 +19,11 @@ class BlocksParser(robot: Robot) {
         this.robot = robot
     }
 
-    fun parse(input: String){
+    fun parse(input: String) {
+        if (input == "quit") {
+            robot.quit()
+            return
+        }
         val left = input.split(" ")[1].toInt()
         val right = input.split(" ")[3].toInt()
         if (input.split(" ")[2] == "onto"){

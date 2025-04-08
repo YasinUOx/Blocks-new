@@ -37,5 +37,23 @@ class BlockParserTests{
         verify(robot).moveOver(3,4)
     }
 
+
+//    @Test
+//    fun `canparseSinglePileOntoInput`() {
+//        val robot = mock(Robot::class.java)
+//        val blocksParser = BlocksParser(robot)
+//
+//        blocksParser.parse("pile 3 onto 4")
+//        verify(robot).pileOnto(3,4)
+//    }
+
+    @Test
+    fun `canParseInputWithQuit`() {
+        val robot = mock(Robot::class.java)
+        val blocksParser = BlocksParser(robot)
+
+        blocksParser.parse("quit")
+        verify(robot).quit()
+    }
 }
 
