@@ -1,13 +1,30 @@
 package com.oocode
+import BlocksParser
+import Robot
 
-import com.natpryce.hamkrest.assertion.assertThat
-import com.natpryce.hamkrest.equalTo
-import moo
+
 import org.junit.jupiter.api.Test
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.verify
 
-internal class MainKtTest {
+class BlockParserTests{
     @Test
-    fun `moo is moo`() {
-        assertThat(moo(), equalTo("boo"))
+    fun `canParseSingleMoveIntoInput`() {
+        val robot = mock(Robot::class.java)
+        val blocksParser = BlocksParser(robot)
+
+        blocksParser.parse("move 3 onto 4")
+        verify(robot).moveOnto(3,4)
     }
+
+    @Test
+    fun `canParseSingleMoveIntoInputVariation`() {
+        val robot = mock(Robot::class.java)
+        val blocksParser = BlocksParser(robot)
+
+        blocksParser.parse("move 4 onto 3")
+        verify(robot).moveOnto(4,3)
+    }
+
 }
+
