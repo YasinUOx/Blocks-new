@@ -13,7 +13,7 @@ class BlockParserTests{
         val robot = mock(Robot::class.java)
         val blocksParser = BlocksParser(robot)
 
-        blocksParser.parse("move 3 onto 4")
+        blocksParser.parse("0\nmove 3 onto 4")
         verify(robot).moveOnto(3,4)
     }
 
@@ -22,21 +22,18 @@ class BlockParserTests{
         val robot = mock(Robot::class.java)
         val blocksParser = BlocksParser(robot)
 
-        blocksParser.parse("move 4 onto 3")
+        blocksParser.parse("0\nmove 4 onto 3")
         verify(robot).moveOnto(4,3)
     }
-
-
 
     @Test
     fun `canParseSingleOverInput`() {
         val robot = mock(Robot::class.java)
         val blocksParser = BlocksParser(robot)
 
-        blocksParser.parse("move 3 over 4")
+        blocksParser.parse("0\nmove 3 over 4")
         verify(robot).moveOver(3,4)
     }
-
 
 //    @Test
 //    fun `canparseSinglePileOntoInput`() {
@@ -52,7 +49,41 @@ class BlockParserTests{
         val robot = mock(Robot::class.java)
         val blocksParser = BlocksParser(robot)
 
-        blocksParser.parse("quit")
+        blocksParser.parse("0\nquit")
+        verify(robot).quit()
+    }
+
+    @Test
+    fun `canParseMultipleInputs`() {
+        val robot = mock(Robot::class.java)
+        val blocksParser = BlocksParser(robot)
+
+        blocksParser.parse("""0
+move 9 onto 1
+move 8 over 1
+move 4 over 9
+quit""".trimIndent())
+        verify(robot).moveOnto(9,1)
+        verify(robot).moveOver(8,1)
+        verify(robot).moveOver(4,9)
+        verify(robot).quit()
+    }
+
+
+    @Test
+    fun `canParseFullInput`() {
+        val robot = mock(Robot::class.java)
+        val blocksParser = BlocksParser(robot)
+
+        blocksParser.parse("""10
+move 9 onto 1
+move 8 over 1
+move 4 over 9
+quit""".trimIndent())
+        verify(robot).start(10)
+        verify(robot).moveOnto(9,1)
+        verify(robot).moveOver(8,1)
+        verify(robot).moveOver(4,9)
         verify(robot).quit()
     }
 }
